@@ -21,7 +21,8 @@ class Article(db.Model):
 
 @app.route('/')
 def hello_world():
-    return render_template('index.html')
+    info = Article.query.all()
+    return render_template('index.html', info_all=info)
 
 
 @app.route('/article', methods=['POST', 'GET'])

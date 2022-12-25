@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block body %}
-    <p><a href="/">Главная</a></p>
     <h1>Добавление расходов</h1>
     <form method="post">
             <select name="category">
@@ -14,8 +13,8 @@
                 <option name="repair car">Ремонт Авто</option>
                 <option name="game">Игры</option>
             </select>
-            <input type="text" name="value" id="value">
-            <input type="text" name="price" id="price">
+            <input type="text" name="value" id="value" placeholder="Наименование">
+            <input type="text" name="price" id="price" placeholder="Стоимость RUB">
             <input type="submit" value="Добавить">
     </form>
 {% endblock %}

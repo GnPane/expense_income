@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1>База данных расходов</h1>
-    <p><a href="/article">Добавить запись</a></p>
+    <h1>База по расходам</h1>
+    <p>Данное приложение даёт вести ежедневные расходы для контроля финансов.</p>
+    {% for article in info_all %}
+    <p>{{ article.category }} - {{ article.value }}</p>
+    <p>{{ article.price }} RUB</p>
+    <br>
+    {% endfor %}
 {% endblock %}

@@ -20,7 +20,7 @@ class Article(db.Model):
 
 
 @app.route('/')
-def hello_world():
+def index():
     info = Article.query.all()
     return render_template('index.html', info_all=info)
 

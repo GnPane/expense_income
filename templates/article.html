@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Страница базы
+{% endblock %}
+
+{% block body %}
+    <h1>Добавление расходов</h1>
+    <form method="post">
+            <select>
+                <option name="food">Продукты</option>
+                <option name="gazolino">Бензин</option>
+            </select>
+            <input type="text" name="value" id="value">
+            <input type="text" name="price" id="price">
+            <input type="submit" value="Добавить">
+    </form>
+{% endblock %}

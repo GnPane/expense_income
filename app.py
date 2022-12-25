@@ -4,6 +4,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///base.db'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
@@ -23,6 +24,11 @@ def hello_world():
     return render_template('index.html')
 
 
+@app.route('/article')
+def create_article():
+    return render_template('article.html')
+
+
 @app.route('/name', methods=['GET', 'POST'])
 def name():
     return "I'm Pavel!"
@@ -34,4 +40,5 @@ def last_name(name, id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.debug = True
+    app.run()

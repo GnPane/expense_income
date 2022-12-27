@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block style %}
+h1 {
+    font-size: 120%;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    color: #333366;
+   }
+body {
+    background: azure;
+}
+a {
+    color: red;
+}
+p {
+    font-style: italic;
+}
+{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="static/main.css">
+{% endblock %}
+
+{% block title %}
+{{ info_id.category }}
+{% endblock %}
+
+{% block body %}
+    <h1>Категория: {{ info_id.category }}</h1>
+    <p>{{ info_id.value }}</p>
+    <p>{{ info_id.price }} RUB</p>
+    <p>Дата создания: {{ info_id.date.date() }}</p>
+{% endblock %}

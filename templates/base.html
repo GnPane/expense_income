@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="static/main.css">
+    {% block link %}{% endblock %}
+    <style type="text/css">{% block style %} {% endblock %}</style>
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>

@@ -4,3 +4,9 @@ body {
 a {
     color: red;
 }
+p {
+    font-style: italic;
+}
+h1 {
+    font-style: oblique;
+}

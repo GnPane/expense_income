@@ -21,8 +21,14 @@ class Article(db.Model):
 
 @app.route('/')
 def index():
-    info = Article.query.all()
+    info = Article.query.order_by(Article.date.desc()).all()
     return render_template('index.html', info_all=info)
+
+
+@app.route('/index/<int:id>')
+def index_detail(id):
+    info_id = Article.query.get(id)
+    return render_template('index-detail.html', info_id=info_id)
 
 
 @app.route('/article', methods=['POST', 'GET'])

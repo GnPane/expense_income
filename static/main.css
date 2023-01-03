@@ -1,5 +1,9 @@
 body {
-    background: azure;
+  padding-bottom: 20px;
+}
+
+.navbar {
+    margin-bottom: 20px;
 }
 a {
     color: red;

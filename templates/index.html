@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Главная страница
+    {{ title }}
 {% endblock %}
 
 {% block body %}
     <h1>База по расходам</h1>
     <p>Данное приложение даёт вести ежедневные расходы для контроля финансов.</p>
+
     {% for article in info_all %}
-    <p>{{ article.id }} - {{ article.category }} - {{ article.value }} - {{ article.price }} RUB</p>
-    <a href="/index/{{ article.id }}">Detail</a>
+        <div>
+            <p>{{ article.id }} - {{ article.category }} - {{ article.value }} - {{ article.price }} RUB</p>
+        </div>
+        <a href="/index/{{ article.id }}">Detail</a>
     {% endfor %}
+
 {% endblock %}

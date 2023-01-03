@@ -2,14 +2,71 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+
+    {% if title %}
+    <title> {{ title }}</title>
+    {% else %}
+    <title>Welcome to Base!</title>
+    {% endif %}
+
     <link rel="stylesheet" type="text/css" href="static/main.css">
+
     {% block link %}{% endblock %}
-    <style type="text/css">{% block style %} {% endblock %}</style>
-    <title>{% block title %}{% endblock %}</title>
+
+    <style type="text/css">
+
+        {% block style %} {% endblock %}
+
+    </style>
+
 </head>
 <body>
-    <p><a href="/">Главная</a></p>
-    <p><a href="/article">Добавить запись</a></p>
+
+{#<nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">#}
+{#    <div class="container-fluid">#}
+{#      <a class="navbar-brand" href="#">Never expand</a>#}
+{#      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">#}
+{#        <span class="navbar-toggler-icon"></span>#}
+{#      </button>#}
+{##}
+{#      <div class="navbar-collapse collapse" id="navbarsExample01" style="">#}
+{#        <ul class="navbar-nav me-auto mb-2">#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link active" aria-current="page" href="#">Home</a>#}
+{#          </li>#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" href="#">Link</a>#}
+{#          </li>#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link disabled">Disabled</a>#}
+{#          </li>#}
+{#          <li class="nav-item dropdown">#}
+{#            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>#}
+{#            <ul class="dropdown-menu">#}
+{#              <li><a class="dropdown-item" href="#">Action</a></li>#}
+{#              <li><a class="dropdown-item" href="#">Another action</a></li>#}
+{#              <li><a class="dropdown-item" href="#">Something else here</a></li>#}
+{#            </ul>#}
+{#          </li>#}
+{#        </ul>#}
+{#        <form role="search">#}
+{#          <input class="form-control" type="search" placeholder="Search" aria-label="Search">#}
+{#        </form>#}
+{#      </div>#}
+{#    </div>#}
+{#  </nav>#}
+{#<script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>#}
+
+
+
+
+    <nav>
+        <p><a href="/">Главная</a></p>
+        <p><a href="/article">Добавить запись</a></p>
+    </nav>
+    <hr>
+
     {% block body %}{% endblock %}
+
 </body>
 </html>

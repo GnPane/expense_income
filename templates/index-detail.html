@@ -18,12 +18,13 @@ p {
 {% endblock %}
 
 {% block title %}
-{{ info_id.category }}
+{{ title }}
 {% endblock %}
 
 {% block body %}
     <h1>Категория: {{ info_id.category }}</h1>
     <p>{{ info_id.value }}</p>
     <p>{{ info_id.price }} RUB</p>
-    <p>Дата создания: {{ info_id.date.date() }}</p>
+    <p>Дата операции: {{ info_id.date_user }}</p>
+    <p>Дата создания: {{ info_id.date_add.date() }}</p>
 {% endblock %}

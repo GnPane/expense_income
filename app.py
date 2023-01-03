@@ -1,11 +1,18 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
 from datetime import datetime
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms.validators import DataRequired
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///costs.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'my_secret_key'
 db = SQLAlchemy(app)
+bootstrap = Bootstrap(app)
 
 
 class Article(db.Model):
@@ -24,16 +31,24 @@ with app.app_context():
     db.create_all()
 
 
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Запомнить меня')
+    submit = SubmitField('Sign In')
+
+
+@app.route('/index')
 @app.route('/')
 def index():
     info = db.session.query(Article).all()
-    return render_template('index.html', info_all=info)
+    return render_template('index.html', title='Главная страница', info_all=info)
 
 
 @app.route('/index/<int:id>')
 def index_detail(id):
     info_id = Article.query.get(id)
-    return render_template('index-detail.html', info_id=info_id)
+    return render_template('index-detail.html', title=f'{info_id.category} - {info_id.date_user}', info_id=info_id)
 
 
 @app.route('/article', methods=['POST', 'GET'])
@@ -43,7 +58,6 @@ def create_article():
         value = request.form['value']
         price = request.form['price']
         date = request.form['date'].replace('-', '.')
-        print(f'Here = {date}')
         if date == '':
             date_user = datetime.utcnow()
         else:
@@ -52,13 +66,13 @@ def create_article():
         try:
             db.session.add(article)
             db.session.commit()
-            return redirect('/')
+            return redirect(url_for('index'))
         except:
             db.session.rollback()
             print("Всё пропало!!!")
-            return redirect('/')
+            return redirect(url_for('index'))
     else:
-        return render_template('article.html')
+        return render_template('article.html', title='Добавить расходы')
 
 
 @app.route('/name', methods=['GET', 'POST'])

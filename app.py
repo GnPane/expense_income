@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired
-
+from wtforms.validators import DataRequired, Length
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///costs.db'
@@ -13,6 +13,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'my_secret_key'
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
+migrate = Migrate(app, db)
 
 
 class Article(db.Model):
@@ -32,10 +33,28 @@ with app.app_context():
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Username',
+                           description='Логин от 6 до 30 символов',
+                           validators=[DataRequired(message='Эта строка не должна быть пустой.'),
+                                       Length(min=6, max=30, message="Логин должен быть от 6 до 30 символов.")
+                                       ]
+                           )
+    password = PasswordField('Password',
+                             validators=[DataRequired(message='Эта строка не должна быть пустой.'),
+                                         Length(min=6, max=30, message="Пароль должен быть от 6 до 30 символов.")
+                                         ]
+                             )
     remember_me = BooleanField('Запомнить меня')
-    submit = SubmitField('Sign In')
+    submit = SubmitField('Вход')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        flash(f'Login requested for user {form.username.data}, remember_me={form.remember_me.data}')
+        return redirect(url_for('index'))
+    return render_template('login.html', title='Sign In', form=form)
 
 
 @app.route('/index')

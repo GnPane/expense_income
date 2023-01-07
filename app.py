@@ -65,25 +65,24 @@ def index():
     total_price = db.session.query(func.sum(Article.price)).all()
     price_of_day = round((total_price[0][0] / ((datetime.now() - datetime(2023, 1, 1)).days + 1)), 2)
     if request.method == 'POST':
-        date_start = request.form['date_start'].replace('-', '.')
-        date_finish = request.form['date_finish'].replace('-', '.')
-        if date_start == '' or date_finish == '':
-            return redirect(url_for('index'))
-        date_start = datetime.strptime(date_start, '%Y.%m.%d')
-        date_finish = datetime.strptime(date_finish, '%Y.%m.%d')
-        price_of_day = round((total_price[0][0] / ((date_finish - date_start).days + 1)), 2)
+        category = request.form['category_filter']
+        filter_category = db.session.query(Article).filter(Article.category == category).all()
+
         return render_template('index.html', title='Главная страница',
                                info_all=info,
                                total_price=total_price[0][0],
                                price_of_day=price_of_day,
-                               date_str=db.session.query(Article).get(1),
-                               date_fin=datetime.now()
+                               date_str=datetime(2023, 1, 1),
+                               date_fin=datetime.now(),
+                               filter_category=filter_category,
+                               category=category
                                )
+
     return render_template('index.html', title='Главная страница',
                            info_all=info,
                            total_price=total_price[0][0],
                            price_of_day=price_of_day,
-                           date_str=db.session.query(Article).get(1),
+                           date_str=datetime(2023, 1, 1),
                            date_fin=datetime.now()
                            )
 

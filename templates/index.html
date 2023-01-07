@@ -11,9 +11,9 @@
         <caption>Таблица расходов</caption>
         <tr align="center">
             <th>Дата</th>
+            <th>Категория</th>
             <th>Наименование</th>
             <th>Цена, RUB</th>
-            <th>Категория</th>
             <th>Дополнительно</th>
         </tr>
         {% for article in info_all %}
@@ -27,10 +27,37 @@
         {% endfor %}
     </table>
     <p>Общая сумма затрат - {{ total_price }} RUB</p>
-    <p>Дневная сумма расходов - {{ price_of_day }} RUB <span>(Период c {{ date_str.date_user }} по {{ date_fin.date() }})</span></p>
+    <p>Дневная сумма расходов - {{ price_of_day }} RUB <span>(Период c {{ date_str.date() }} по {{ date_fin.date() }})</span></p>
     <form method="post">
-        <input type="date" name="date_start" id="date_start" >
-        <input type="date" name="date_finish" id="date_finish">
-        <input type="submit" value="Расчитать">
+        <select name="category_filter">
+                <option name="food">Продукты</option>
+                <option name="gazolino">Бензин</option>
+                <option name="repair car">Ремонт Авто</option>
+                <option name="game">Игры</option>
+                <option name="credit">Кредит</option>
+                <option name="ather">Прочее</option>
+                <option name="Pharmacy">Аптека</option>
+                <option name="cafe">Кафе</option>
+                <option name="dress">Одежда</option>
+            </select>
+        <input type="submit" value="Отфильтровать">
     </form>
+
+    <table border="1">
+        <caption>Таблица по фильтру <span>{{ category }}</span></caption>
+        <tr align="center">
+            <th>Дата</th>
+            <th>Категория</th>
+            <th>Наименование</th>
+            <th>Цена, RUB</th>
+        </tr>
+        {% for fil in filter_category %}
+        <tr align="center">
+            <td>{{ fil.date_user }}</td>
+            <td>{{ fil.category }}</td>
+            <td>{{ fil.value }}</td>
+            <td>{{ fil.price }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

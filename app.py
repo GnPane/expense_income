@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Length
+from sqlalchemy import func
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///costs.db'
@@ -13,7 +13,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'my_secret_key'
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
-migrate = Migrate(app, db)
 
 
 class Article(db.Model):
@@ -60,7 +59,8 @@ def login():
 @app.route('/index')
 @app.route('/')
 def index():
-    info = db.session.query(Article).all()
+    info = Article.query.order_by(Article.date_user.desc()).all()  # db.session.query(Article).all()
+    total_price = db.session.query(Article)
     return render_template('index.html', title='Главная страница', info_all=info)
 
 
@@ -94,9 +94,9 @@ def create_article():
         return render_template('article.html', title='Добавить расходы')
 
 
-@app.route('/name', methods=['GET', 'POST'])
-def name():
-    return "I'm Pavel!"
+@app.route('/list')
+def list_cnl():
+    return render_template('list_control.html', title='Список')
 
 
 @app.route('/last_name/<string:name>/<int:id>')

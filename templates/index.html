@@ -7,12 +7,24 @@
 {% block body %}
     <h1>База по расходам</h1>
     <p>Данное приложение даёт вести ежедневные расходы для контроля финансов.</p>
-
-    {% for article in info_all %}
-        <div>
-            <p>{{ article.id }} - {{ article.category }} - {{ article.value }} - {{ article.price }} RUB</p>
-        </div>
-        <a href="/index/{{ article.id }}">Detail</a>
+    <table border="1">
+        <caption>Таблица расходов</caption>
+        <tr align="center">
+            <th>Дата</th>
+            <th>Наименование</th>
+            <th>Цена, RUB</th>
+            <th>Категория</th>
+            <th>Дополнительно</th>
+        </tr>
+        {% for article in info_all %}
+        <tr align="center">
+            <td>{{ article.date_user }}</td>
+            <td>{{ article.category }}</td>
+            <td>{{ article.value }}</td>
+            <td>{{ article.price }}</td>
+            <td><a href="/index/{{ article.id }}">Подробно</a></td>
+        </tr>
     {% endfor %}
+    </table>
 
 {% endblock %}

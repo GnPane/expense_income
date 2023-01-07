@@ -59,11 +59,33 @@ def login():
 
 
 @app.route('/index')
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def index():
-    info = Article.query.order_by(Article.date_user.desc()).all()  # db.session.query(Article).all()
+    info = Article.query.order_by(Article.date_user.desc()).limit(10).all()  # db.session.query(Article).all()
     total_price = db.session.query(func.sum(Article.price)).all()
-    return render_template('index.html', title='Главная страница', info_all=info, total_price=total_price[0][0])
+    price_of_day = round((total_price[0][0] / ((datetime.now() - datetime(2023, 1, 1)).days + 1)), 2)
+    if request.method == 'POST':
+        date_start = request.form['date_start'].replace('-', '.')
+        date_finish = request.form['date_finish'].replace('-', '.')
+        if date_start == '' or date_finish == '':
+            return redirect(url_for('index'))
+        date_start = datetime.strptime(date_start, '%Y.%m.%d')
+        date_finish = datetime.strptime(date_finish, '%Y.%m.%d')
+        price_of_day = round((total_price[0][0] / ((date_finish - date_start).days + 1)), 2)
+        return render_template('index.html', title='Главная страница',
+                               info_all=info,
+                               total_price=total_price[0][0],
+                               price_of_day=price_of_day,
+                               date_str=db.session.query(Article).get(1),
+                               date_fin=datetime.now()
+                               )
+    return render_template('index.html', title='Главная страница',
+                           info_all=info,
+                           total_price=total_price[0][0],
+                           price_of_day=price_of_day,
+                           date_str=db.session.query(Article).get(1),
+                           date_fin=datetime.now()
+                           )
 
 
 @app.route('/index/<int:id>')

@@ -26,5 +26,11 @@
         </tr>
         {% endfor %}
     </table>
-<p>Общая сумма затрат - {{ total_price }}</p>
+    <p>Общая сумма затрат - {{ total_price }} RUB</p>
+    <p>Дневная сумма расходов - {{ price_of_day }} RUB <span>(Период c {{ date_str.date_user }} по {{ date_fin.date() }})</span></p>
+    <form method="post">
+        <input type="date" name="date_start" id="date_start" >
+        <input type="date" name="date_finish" id="date_finish">
+        <input type="submit" value="Расчитать">
+    </form>
 {% endblock %}

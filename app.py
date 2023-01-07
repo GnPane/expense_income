@@ -5,7 +5,9 @@ from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Length
+
 from sqlalchemy import func
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///costs.db'
@@ -60,8 +62,8 @@ def login():
 @app.route('/')
 def index():
     info = Article.query.order_by(Article.date_user.desc()).all()  # db.session.query(Article).all()
-    total_price = db.session.query(Article)
-    return render_template('index.html', title='Главная страница', info_all=info)
+    total_price = db.session.query(func.sum(Article.price)).all()
+    return render_template('index.html', title='Главная страница', info_all=info, total_price=total_price[0][0])
 
 
 @app.route('/index/<int:id>')

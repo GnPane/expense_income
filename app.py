@@ -93,6 +93,12 @@ def index_detail(id):
     return render_template('index-detail.html', title=f'{info_id.category} - {info_id.date_user}', info_id=info_id)
 
 
+@app.route('/all_table')
+def all_table():
+    all_info = Article.query.order_by(Article.date_user.desc()).all()
+    return render_template('all_table.html', title='Вся база', all_info=all_info)
+
+
 @app.route('/article', methods=['POST', 'GET'])
 def create_article():
     if request.method == 'POST':

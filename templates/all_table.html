@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    <h1>Полная база по расходам</h1>
+    <table border="1">
+        <caption>Таблица расходов</caption>
+        <tr align="center">
+            <th>Дата</th>
+            <th>Категория</th>
+            <th>Наименование</th>
+            <th>Цена, RUB</th>
+        </tr>
+        {% for article in all_info %}
+        <tr align="center">
+            <td>{{ article.date_user }}</td>
+            <td>{{ article.category }}</td>
+            <td>{{ article.value }}</td>
+            <td>{{ article.price }}</td>
+        </tr>
+        {% endfor %}
+
+{% endblock %}

@@ -42,3 +42,23 @@ span {
   background-position: center top;
   text-transform: uppercase;
 }
+.container {
+  width: 510px;
+  /*margin: 0 auto;*/
+  padding: 0 20px;
+}
+
+
+.site-footer .container {
+  text-align: center;
+}
+.site-footer {
+  min-width: 550px;
+  background-color: #847462;
+  color: #ffffff;
+}
+.site-footer p {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 20px;
+}

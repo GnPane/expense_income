@@ -26,7 +26,7 @@ class Article(db.Model):
     date_add = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
-        return f'Article {self.id}'
+        return f'Article {self.id} - {self.category}'
 
 
 with app.app_context():

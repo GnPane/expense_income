@@ -1,17 +1,21 @@
 body {
-  margin: 0 20px;
+  margin: 0 0px;
   padding: 0;
   font-family: "Arial", sans-serif;
   font-size: 14px;
   line-height: 20px;
   color: #444444;
 }
+.bodybar {
+  background-color: #FFE5CC;
+  padding: 20px;
+}
 
 .navbar {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 a {
-    color: red;
+    color: wheat;
 }
 p {
     font-style: italic;
@@ -29,15 +33,16 @@ span {
     color: blue;
 }
 .features {
-  width: 510px;
+  width: 100%;
   /*margin: 0 auto 30px;*/
-  padding: 20px 0;
+  padding: 20px 10px;
+  background-color: #847462;
 }
 .features p {
   display: inline-block;
   vertical-align: top;
   /*width: 15%;*/
-  margin: 0 5px;
+  margin: 0 10px;
   background-repeat: no-repeat;
   background-position: center top;
   text-transform: uppercase;

@@ -59,14 +59,14 @@
 
 
 
-
+<div class="navbar">
     <nav class="features">
         <p><a href="{{ url_for('index') }}">Главная</a></p>
         <p><a href="{{ url_for('create_article') }}">Добавить запись</a></p>
         <p><a href="{{ url_for('list_cnl') }}">Список отслеживания</a></p>
         <p><a href="{{ url_for('login') }}">Вход</a></p>
     </nav>
-    <hr>
+</div>
 
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -77,9 +77,10 @@
         </ul>
         {% endif %}
     {% endwith %}
-
-    {% block body %}{% endblock %}
-
+<div class="bodybar">
+    {% block body %}
+    {% endblock %}
+</div>
     <footer class="site-footer">
       <div class="container">
         <p>© GnPane, 2022</p>

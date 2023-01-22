@@ -109,9 +109,5 @@ def list_cnl():
     return render_template('list_control.html', title='Список')
 
 
-@app.route('/last_name/<string:name>/<int:id>')
-def last_name(name, id):
-    return f"Are you {name}, number - {id}?"
-
 # if __name__ == '__main__':
 #     app.run(debug=True)

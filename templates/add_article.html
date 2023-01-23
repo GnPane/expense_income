@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    <h1>Добавление расходов</h1>
+    <form method="post">
+            <select name="category">
+                <option name="zp">Зарплата</option>
+                <option name="gos">Пособия</option>
+                <option name="isr">Страховые выплаты</option>
+                <option name="kashina">ИП Кашина</option>
+                <option name="erina">ИП Ерина</option>
+                <option name="avn">Аванс</option>
+                <option name="chaltura">Халтура</option>
+            </select>
+            <input type="text" name="value" id="value" placeholder="Наименование">
+            <input type="text" name="price" id="price" placeholder="Заработок RUB">
+            <input type="date" name="date" id="date">
+            <input type="submit" value="Добавить">
+    </form>
+{% endblock %}

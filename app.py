@@ -18,12 +18,24 @@ class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(100), nullable=False)
     value = db.Column(db.String(100), nullable=False)
+    cash_receipts = db.Column(db.Integer, nullable=False)
+    date_user = db.Column(db.Date, nullable=False)
+    date_add = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'Article {self.id} - {self.category} - {self.price}'
+
+
+class Income(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.String(100), nullable=False)
+    value = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Integer, nullable=False)
     date_user = db.Column(db.Date, nullable=False)
     date_add = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
-        return f'Article {self.id} - {self.category}'
+        return f'Income {self.id} - {self.category} - {self.price}'
 
 
 with app.app_context():

@@ -18,7 +18,7 @@ class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(100), nullable=False)
     value = db.Column(db.String(100), nullable=False)
-    cash_receipts = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Integer, nullable=False)
     date_user = db.Column(db.Date, nullable=False)
     date_add = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -30,7 +30,7 @@ class Income(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(100), nullable=False)
     value = db.Column(db.String(100), nullable=False)
-    price = db.Column(db.Integer, nullable=False)
+    cash_receipts = db.Column(db.Integer, nullable=False)
     date_user = db.Column(db.Date, nullable=False)
     date_add = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -114,6 +114,11 @@ def create_article():
             return redirect(url_for('index'))
     else:
         return render_template('article.html', title='Добавить расходы')
+
+
+@app.route('/add_article', methods=['POST', 'GET'])
+def add_article():
+    return render_template('add_article.html', title='Добавить')
 
 
 @app.route('/list')

@@ -67,3 +67,14 @@ span {
   vertical-align: middle;
   padding: 0 20px;
 }
+.l_tab {
+margin-bottom: 500px;
+}
+.tab_left {
+  width: 50%;
+  float: left;
+}
+.tab_right {
+  width: 50%;
+  float: left;
+}

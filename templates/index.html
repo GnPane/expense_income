@@ -7,6 +7,8 @@
 {% block body %}
     <h1>База по расходам</h1>
     <p>Данное приложение даёт вести ежедневные расходы для контроля финансов.</p>
+<div class="l_tab">
+    <div class="tab_left">
     <a href="{{ url_for('all_table') }}">Развернуть таблицу</a>
     <table border="1">
         <caption>Таблица расходов</caption>
@@ -30,6 +32,33 @@
     <p>Общая сумма затрат - {{ total_price }} RUB</p>
     <p>Дневная сумма расходов - {{ price_of_day }} RUB
         <span>(Период c {{ date_str.date() }} по {{ date_fin.date() }})</span> "Целевой показатель 5000 RUB"</p>
+    </div>
+    <div class="tab_right">
+        <a href="{{ url_for('all_table') }}">Развернуть таблицу</a>
+    <table border="1">
+        <caption>Таблица дохода</caption>
+        <tr align="center">
+            <th>Дата</th>
+            <th>Категория</th>
+            <th>Наименование</th>
+            <th>Цена, RUB</th>
+            <th>Дополнительно</th>
+        </tr>
+        {% for income in info_add %}
+        <tr align="center">
+            <td>{{ income.date_user }}</td>
+            <td>{{ income.category }}</td>
+            <td>{{ income.value }}</td>
+            <td>{{ income.cash_receipts }}</td>
+            <td><a href="/index/{{ income.id }}">Подробно</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p>Общая сумма затрат - {{ total_price_add }} RUB</p>
+    <p>Дневная сумма расходов - {{ price_of_day_add }} RUB
+        <span>(Период c {{ date_str.date() }} по {{ date_fin.date() }})</span> "Целевой показатель 5500 RUB"</p>
+    </div>
+</div>
     <br>
     <hr>
     <form method="post">

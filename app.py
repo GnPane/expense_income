@@ -57,14 +57,21 @@ def index():
     info = Article.query.order_by(Article.date_user.desc()).limit(10).all()  # db.session.query(Article).all()
     total_price = db.session.query(func.sum(Article.price)).all()
     price_of_day = round((total_price[0][0] / ((datetime.now() - datetime(2023, 1, 1)).days + 1)), 2)
+
+    info_add = Income.query.order_by(Income.date_user.desc()).limit(10).all()
+    total_price_add = db.session.query(func.sum(Income.cash_receipts)).all()
+    price_of_day_add = round((total_price_add[0][0] / ((datetime.now() - datetime(2023, 1, 1)).days + 1)), 2)
+
     if request.method == 'POST':
         category = request.form['category_filter']
         filter_category = db.session.query(Article).filter(Article.category == category).all()
-
         return render_template('index.html', title='Главная страница',
                                info_all=info,
+                               info_add=info_add,
                                total_price=total_price[0][0],
+                               total_price_add=total_price_add[0][0],
                                price_of_day=price_of_day,
+                               price_of_day_add=price_of_day_add,
                                date_str=datetime(2023, 1, 1),
                                date_fin=datetime.now(),
                                filter_category=filter_category,
@@ -73,8 +80,11 @@ def index():
 
     return render_template('index.html', title='Главная страница',
                            info_all=info,
+                           info_add=info_add,
                            total_price=total_price[0][0],
+                           total_price_add=total_price_add[0][0],
                            price_of_day=price_of_day,
+                           price_of_day_add=price_of_day_add,
                            date_str=datetime(2023, 1, 1),
                            date_fin=datetime.now()
                            )
@@ -118,7 +128,26 @@ def create_article():
 
 @app.route('/add_article', methods=['POST', 'GET'])
 def add_article():
-    return render_template('add_article.html', title='Добавить')
+    if request.method == 'POST':
+        category = request.form['category']
+        value = request.form['value']
+        cash_receipts = request.form['cash_receipts']
+        date = request.form['date'].replace('-', '.')
+        if date == '':
+            date_user = datetime.utcnow()
+        else:
+            date_user = datetime.strptime(date, '%Y.%m.%d')
+        income = Income(category=category, value=value, cash_receipts=cash_receipts, date_user=date_user)
+        try:
+            db.session.add(income)
+            db.session.commit()
+            return redirect(url_for('index'))
+        except:
+            db.session.rollback()
+            print("Всё пропало!!!")
+            return redirect(url_for('index'))
+    else:
+        return render_template('add_article.html', title='Добавить')
 
 
 @app.route('/list')

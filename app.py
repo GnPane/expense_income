@@ -155,5 +155,6 @@ def list_cnl():
     return render_template('list_control.html', title='Список')
 
 
+
 # if __name__ == '__main__':
 #     app.run(debug=True)
